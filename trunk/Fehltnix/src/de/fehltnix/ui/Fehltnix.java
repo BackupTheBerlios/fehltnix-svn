@@ -18,15 +18,15 @@ package de.fehltnix.ui;
 
 import de.fehltnix.watcher.WatcherManager;
 
-public class FailtNix{
+public class Fehltnix{
 
 	public static void main(String[] args) {
 
-		new FailtNix(args);
+		new Fehltnix(args);
 
 	}
 	
-	public FailtNix(String[] files){
+	public Fehltnix(String[] files){
 		
 		for(int i = 0; i < files.length; i++){
 			
