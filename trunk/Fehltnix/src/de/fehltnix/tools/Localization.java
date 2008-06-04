@@ -66,5 +66,12 @@ public class Localization {
 	public static void setLocale(Locale loc){
 		myBundle = ResourceBundle.getBundle("messages", loc);
 	}
+	
+	//Keys for localization
+	
+	public final static String STOPPEDWATCHING_KEY = "StoppedWatching";
+	public final static String STARTED_KEY = "Started";
+	public final static String VERSION_KEY = "Version";
+	public final static String WATCHING_KEY = "Watching";
 
 }

@@ -16,42 +16,24 @@
 
 package de.fehltnix.ui;
 
-import de.fehltnix.tools.Localization;
-import de.fehltnix.watcher.WatcherManager;
+import java.util.Date;
 
 /**
- * Main class
+ * Class to manage console output
  * 
  * @author johannes
  *
  */
-public class Fehltnix{
+public class ConsolOut {
 
 	/**
-	 * Version number of release
+	 * Prints a string out by System.out.println and adds the current date
+	 * @param msg
 	 */
-	public final static String VERSION = "1.0";
-	
-	/**
-	 * Main method expects file names as parameter 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		new Fehltnix(args);
-
+	public static void printOutWithDate(String msg){
+		
+		System.out .println(new Date()+" "+msg);
 	}
 	
-	public Fehltnix(String[] files){
-		
-		ConsolOut.printOutWithDate("Fehltnix v"+ VERSION+" "+Localization.getInstance().getString(Localization.STARTED_KEY));
-		
-		for(int i = 0; i < files.length; i++){
-			
-			WatcherManager.getInstance().add(files[i]);
-			
-		}
-					
-	}
-
+	
 }

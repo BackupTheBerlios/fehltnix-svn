@@ -20,6 +20,9 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
+import de.fehltnix.tools.Localization;
+import de.fehltnix.ui.ConsolOut;
+
 /**
  * Class manages the watching of the files.
  * 
@@ -92,19 +95,23 @@ public class WatcherManager implements Observer{
 		
 		t.start();
 		
+		ConsolOut.printOutWithDate(Localization.getInstance().getString(Localization.WATCHING_KEY) +" "+ filename);
+		
 	}
 
 	@Override
 	public void update(Observable watcher, Object msg){
 		
-		System.out.println(Protocol.getFilename(msg) + ": " + Protocol.getEventMessage(msg));
+		ConsolOut.printOutWithDate(Protocol.getFilename(msg) + " " + Protocol.getEventMessage(msg));
 		
 		switch(Protocol.getEventCode(msg)){
 		
 			case Protocol.FILE_DOES_NOT_EXIST:
 			
 				watcherList.remove(new Integer(watcher.hashCode()));
-			
+				
+				ConsolOut.printOutWithDate(Protocol.getFilename(msg) + " " + Localization.getInstance().getString(Localization.STOPPEDWATCHING_KEY));
+				
 				break;
 		
 			default:
