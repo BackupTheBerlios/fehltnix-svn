@@ -14,9 +14,9 @@
    along with Fehltnix.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package de.failtnix.ui;
+package de.fehltnix.ui;
 
-import de.failtnix.watcher.WatcherManager;
+import de.fehltnix.watcher.WatcherManager;
 
 public class FailtNix{
 

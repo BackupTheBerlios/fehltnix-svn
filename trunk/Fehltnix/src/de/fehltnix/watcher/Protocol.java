@@ -14,9 +14,9 @@
    along with Fehltnix.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package de.failtnix.watcher;
+package de.fehltnix.watcher;
 
-import de.failtnix.tools.Localization;
+import de.fehltnix.tools.Localization;
 
 public class Protocol {
 	

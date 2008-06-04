@@ -14,14 +14,14 @@
    along with Fehltnix.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package de.failtnix.watcher;
+package de.fehltnix.watcher;
 
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-import de.failtnix.tools.Localization;
+import de.fehltnix.tools.Localization;
 
 public class WatcherManager implements Observer{
 

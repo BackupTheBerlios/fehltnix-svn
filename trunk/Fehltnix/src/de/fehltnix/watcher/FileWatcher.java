@@ -14,7 +14,7 @@
    along with Fehltnix.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package de.failtnix.watcher;
+package de.fehltnix.watcher;
 
 import java.io.File;
 import java.util.Observable;

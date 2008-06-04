@@ -14,7 +14,7 @@
    along with Fehltnix.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package de.failtnix.tools;
+package de.fehltnix.tools;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
