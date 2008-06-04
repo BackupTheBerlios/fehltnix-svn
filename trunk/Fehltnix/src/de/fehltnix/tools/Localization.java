@@ -23,8 +23,6 @@ import java.util.ResourceBundle;
  * This class is the localization tool. Type Localization.getInstance().getString(key)
  * to get a localized string from the property file in your code.
  * The Locale of the os is the default locale. The bundle name is "messages".
- * 
- * @author johannes
  *
  */
 public class Localization {

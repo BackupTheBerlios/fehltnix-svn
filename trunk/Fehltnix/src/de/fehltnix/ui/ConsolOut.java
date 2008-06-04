@@ -20,8 +20,6 @@ import java.util.Date;
 
 /**
  * Class to manage console output
- * 
- * @author johannes
  *
  */
 public class ConsolOut {

@@ -22,7 +22,6 @@ import java.util.Observable;
 
 /**
  * FileWatcher Thread, which watches the files or directories
- * @author johannes
  *
  */
 public class FileWatcher extends Observable implements Runnable{

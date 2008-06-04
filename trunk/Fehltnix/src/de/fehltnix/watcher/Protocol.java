@@ -19,8 +19,7 @@ package de.fehltnix.watcher;
 import de.fehltnix.tools.Localization;
 
 /**
- * Protocol for messages bewteen layers
- * @author johannes
+ * Protocol for messages between layers
  *
  */
 public class Protocol {

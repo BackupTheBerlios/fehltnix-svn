@@ -21,8 +21,6 @@ import de.fehltnix.watcher.WatcherManager;
 
 /**
  * Main class
- * 
- * @author johannes
  *
  */
 public class Fehltnix{

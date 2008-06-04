@@ -28,7 +28,6 @@ import de.fehltnix.ui.ConsolOut;
  * 
  * This class is a singleton.
  * 
- * @author johannes
  *
  */
 public class WatcherManager implements Observer{
