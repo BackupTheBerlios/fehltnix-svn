@@ -18,7 +18,14 @@ package de.fehltnix.watcher;
 
 import de.fehltnix.tools.Localization;
 
+/**
+ * Protocol for messages bewteen layers
+ * @author johannes
+ *
+ */
 public class Protocol {
+	
+	// Business variables 
 	
 	public static final int PROTOCOL_FILENAME = 0; 
 	
@@ -26,34 +33,73 @@ public class Protocol {
 	
 	public static final String SEPERATOR_SUBJECT = ";";
 	
+	
+	// File events 
+	
 	public static final int FILE_DOES_NOT_EXIST = 0;
 	
 	public static final int FILE_CHANGED = 1;
 	
+	public static final int DIR_CHANGED_MOREFILES = 2;
+	
+	public static final int DIR_CHANGED_LESSFILES = 3;
+	
+	/**
+	 * Method encodes the given parameter in a message
+	 * 
+	 * @param filename
+	 * @param event
+	 * @return
+	 */
 	public static String createMessage(String filename, int event){
 		
 		return filename + SEPERATOR_SUBJECT + event;
 		
 	}
 	
-	public static String[] parse(String msg){
+	
+	/**
+	 * Method splits a message into its single parts
+	 * 
+	 * @param msg
+	 * @return
+	 */
+	private static String[] parse(String msg){
 		
 		return msg.split(SEPERATOR_SUBJECT);
 		
 	}
 	
+	/**
+	 * Method returns the code of the event from a message
+	 * 
+	 * @param msg
+	 * @return
+	 */
 	public static int getEventCode(Object msg){
 		
 		return Integer.parseInt(parse((String)msg)[PROTOCOL_EVENT]);
 		
 	}
 	
+	/**
+	 * Method returns the localized event string from a message 
+	 * 
+	 * @param msg
+	 * @return
+	 */
 	public static String getEventMessage(Object msg){
 		
 		return Localization.getInstance().getString(parse((String)msg)[PROTOCOL_EVENT]);
 		
 	}
 	
+	/**
+	 * Method returns the filename from a message
+	 * 
+	 * @param msg
+	 * @return
+	 */
 	public static String getFilename(Object msg){
 		
 		return parse((String)msg)[PROTOCOL_FILENAME];

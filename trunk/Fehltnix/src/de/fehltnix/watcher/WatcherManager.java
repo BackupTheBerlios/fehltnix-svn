@@ -19,36 +19,67 @@ package de.fehltnix.watcher;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.ResourceBundle;
 
-import de.fehltnix.tools.Localization;
-
+/**
+ * Class manages the watching of the files.
+ * 
+ * This class is a singleton.
+ * 
+ * @author johannes
+ *
+ */
 public class WatcherManager implements Observer{
 
+	private static int DEFAULT_TIME_INTERVAL = 1000;
+	
+	/**
+	 * Instance of WatcherManager
+	 */
 	private static WatcherManager instance = new WatcherManager();
 	
+	/**
+	 * Map with all current running watcher threads
+	 */
 	private HashMap<Integer, Thread> watcherList;
 	
-	private ResourceBundle loc = Localization.getInstance();
-	
+	/**
+	 * Private constructor (Singleton) 
+	 */
 	private WatcherManager(){
 	
 		watcherList = new HashMap<Integer, Thread>();
 		
 	}
 
+	/**
+	 * Returns instance of WatcherManager
+	 * @return
+	 */
 	public static WatcherManager getInstance(){
 		
 		return instance;
 		
 	}
 	
+	/**
+	 * Methods adds a file for watching.
+	 * 
+	 * Time interval is DEFAULT_TIME_INTERVAL
+	 * 
+	 * @param filename
+	 */
 	public void add(String filename){
 		
-		add(filename, 1000);
+		add(filename, DEFAULT_TIME_INTERVAL);
 		
 	}
 	
+	/**
+	 * Method adds a file for watching in a specified time interval for watching.
+	 * 
+	 * @param filename
+	 * @param interval
+	 */
 	public void add(String filename, long interval){
 		
 		FileWatcher f = new FileWatcher(filename, interval);

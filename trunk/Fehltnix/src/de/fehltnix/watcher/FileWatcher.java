@@ -17,8 +17,15 @@
 package de.fehltnix.watcher;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Observable;
 
+
+/**
+ * FileWatcher Thread, which watches the files or directories
+ * @author johannes
+ *
+ */
 public class FileWatcher extends Observable implements Runnable{
 	
 	private String filename;
@@ -26,6 +33,8 @@ public class FileWatcher extends Observable implements Runnable{
 	private long interval;
 	
 	private long lastModified = -1;
+	
+	private HashMap<String, Integer> directoryFileCounts;
 	
 	public FileWatcher(String filename){
 		
@@ -38,6 +47,8 @@ public class FileWatcher extends Observable implements Runnable{
 		this.filename = filename;
 		
 		this.interval = interval;
+		
+		directoryFileCounts = new HashMap<String, Integer>();
 		
 	}
 	
@@ -60,6 +71,12 @@ public class FileWatcher extends Observable implements Runnable{
 					this.notifyObservers(Protocol.createMessage(filename, Protocol.FILE_DOES_NOT_EXIST));
 					
 					return;
+					
+				}
+				
+				if(f.isDirectory()){
+					
+					this.watchDirectory(f);
 					
 				}
 				
@@ -88,6 +105,61 @@ public class FileWatcher extends Observable implements Runnable{
 			
 		}
 		
+		
+	}
+	
+	/**
+	 * Method counts files of directory and looks if there are more or less files in the given directory
+	 * @param f
+	 * @return
+	 */
+	public boolean watchDirectory(File f){
+		
+		int fileCount = f.listFiles().length;
+		
+		Integer fileCountOld = directoryFileCounts.get(f.getAbsolutePath());
+		
+		if(fileCountOld != null){
+			
+			if(fileCount > fileCountOld.intValue()){
+				
+				this.refreshDirectoryInfo(f);
+				
+				this.setChanged();
+				this.notifyObservers(Protocol.createMessage(f.getAbsolutePath(), Protocol.DIR_CHANGED_MOREFILES));
+					
+			}
+			else if(fileCount < fileCountOld.intValue()){
+				
+				this.refreshDirectoryInfo(f);
+				
+				this.setChanged();
+				this.notifyObservers(Protocol.createMessage(f.getAbsolutePath(), Protocol.DIR_CHANGED_LESSFILES));
+				
+			}
+			else{
+				
+				//nothing happened
+				
+			}
+			
+		}
+		else {
+			
+			this.refreshDirectoryInfo(f);
+			
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * method store all necessary information about a directory in hashmap
+	 * @param f
+	 */
+	private void refreshDirectoryInfo(File f){
+		
+		directoryFileCounts.put(f.getAbsolutePath(), new Integer(f.listFiles().length));
 		
 	}
 

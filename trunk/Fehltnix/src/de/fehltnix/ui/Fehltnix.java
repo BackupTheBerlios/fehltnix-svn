@@ -18,8 +18,18 @@ package de.fehltnix.ui;
 
 import de.fehltnix.watcher.WatcherManager;
 
+/**
+ * Main class
+ * 
+ * @author johannes
+ *
+ */
 public class Fehltnix{
 
+	/**
+	 * Main method expects file names as parameter 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		new Fehltnix(args);
