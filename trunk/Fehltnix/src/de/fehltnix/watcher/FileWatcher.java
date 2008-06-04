@@ -32,23 +32,26 @@ public class FileWatcher extends Observable implements Runnable{
 	
 	private long interval;
 	
+	/**
+	 * Variable stores when when file is modified the last time
+	 */
 	private long lastModified = -1;
 	
-	private HashMap<String, Integer> directoryFileCounts;
+	/**
+	 * File counts from directories  
+	 */
+	private int directoryFileCountOld = -1;
 	
-	public FileWatcher(String filename){
-		
-		this.filename = filename;
-		
-	}
-	
+	/**
+	 * Constructor with a filename and an tie interval for watching
+	 * @param filename
+	 * @param interval
+	 */
 	public FileWatcher(String filename, long interval){
 		
 		this.filename = filename;
 		
 		this.interval = interval;
-		
-		directoryFileCounts = new HashMap<String, Integer>();
 		
 	}
 	
@@ -79,22 +82,12 @@ public class FileWatcher extends Observable implements Runnable{
 					this.watchDirectory(f);
 					
 				}
-				
-				if(lastModified == -1){
+				else if(f.isFile()){
 					
-					lastModified = f.lastModified();
-					
-				}
-				else if(f.lastModified() > lastModified)
-				{
-					
-					lastModified = f.lastModified();
-					
-					this.setChanged();
-					this.notifyObservers(Protocol.createMessage(filename, Protocol.FILE_CHANGED));
+					this.watchFileChangeDate(f);
 					
 				}
-			
+
 			}
 			
 		}
@@ -117,11 +110,9 @@ public class FileWatcher extends Observable implements Runnable{
 		
 		int fileCount = f.listFiles().length;
 		
-		Integer fileCountOld = directoryFileCounts.get(f.getAbsolutePath());
-		
-		if(fileCountOld != null){
+		if(directoryFileCountOld != -1){
 			
-			if(fileCount > fileCountOld.intValue()){
+			if(fileCount > directoryFileCountOld){
 				
 				this.refreshDirectoryInfo(f);
 				
@@ -129,7 +120,7 @@ public class FileWatcher extends Observable implements Runnable{
 				this.notifyObservers(Protocol.createMessage(f.getAbsolutePath(), Protocol.DIR_CHANGED_MOREFILES));
 					
 			}
-			else if(fileCount < fileCountOld.intValue()){
+			else if(fileCount < directoryFileCountOld){
 				
 				this.refreshDirectoryInfo(f);
 				
@@ -154,12 +145,38 @@ public class FileWatcher extends Observable implements Runnable{
 	}
 	
 	/**
-	 * method store all necessary information about a directory in hashmap
+	 * Method store all necessary information about a directory
 	 * @param f
 	 */
 	private void refreshDirectoryInfo(File f){
 		
-		directoryFileCounts.put(f.getAbsolutePath(), new Integer(f.listFiles().length));
+		directoryFileCountOld = f.listFiles().length;
+		
+	}
+	
+	/**
+	 * Method watches a file date for changes
+	 * @param f
+	 * @return
+	 */
+	private boolean watchFileChangeDate(File f){
+		
+		if(lastModified == -1){
+			
+			lastModified = f.lastModified();
+			
+		}
+		else if(f.lastModified() > lastModified)
+		{
+			
+			lastModified = f.lastModified();
+			
+			this.setChanged();
+			this.notifyObservers(Protocol.createMessage(filename, Protocol.FILE_CHANGED));
+			
+		}
+		
+		return true;
 		
 	}
 
