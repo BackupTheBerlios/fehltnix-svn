@@ -17,7 +17,6 @@
 package de.fehltnix.watcher;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.Observable;
 
 

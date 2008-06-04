@@ -27,6 +27,11 @@ import de.fehltnix.watcher.WatcherManager;
 public class Fehltnix{
 
 	/**
+	 * Version number of release
+	 */
+	public static String version = "1.0";
+	
+	/**
 	 * Main method expects file names as parameter 
 	 * @param args
 	 */
